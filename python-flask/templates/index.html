@@ -4,6 +4,9 @@
 	<h1>Enter your query:</h1>
 	<form id="test" method="POST" action="">
 		<div class="speech">
+			{% if queryResults != None %}
+				<p>{{ queryResults }}</p>
+			{% endif %}
 			<input type="text" name="query" id="transcript" placeholder="speak"><br>
 			<!-- <img onclick="startDictation()" src="http://via.placeholder.com/350x150"><br> -->
 			<i onclick="startDictation()" id="microphoneButton" class="fa fa-microphone fa-5x" aria-hidden="true"></i><br>

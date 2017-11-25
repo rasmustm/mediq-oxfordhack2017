@@ -53,6 +53,25 @@ $("#start_button").click(function(){
 		let startbutton = $("<li><a href=''#one' class='button scrolly'>Recording</a></li>");
 		$("#start_button").append(startbutton);
 		$("#start_button").addClass('recording');
+		$("#searchsubtitle").empty();
 
 		render();
 });
+
+title = "Here goes the title"
+abstract = "Here goes the abstract."
+journalLink = "www.google.nl"
+
+// $().(()){
+// 	let article = $("
+// 		<div class='row 150%'>
+// 			<div class='4u 12u$(medium)'>
+// 				<h3>"+title+"</h3>
+// 				<p>"+abstract+"</p>
+// 				<ul class='actions'>
+// 					<li><a href="+journalLink+" class="button">Full article</a></li>
+// 				</ul>
+// 			</div>"
+// 	);
+// 	$("#articleposts").append(article);
+// });

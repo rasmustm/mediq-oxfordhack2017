@@ -13,7 +13,7 @@ function startDictation() {
       recognition.onresult = function(e) {
         document.getElementById('transcript').value
                                  = e.results[0][0].transcript;
-        recognition.stop();
+      recognition.stop();
         // document.getElementById('test').submit();
       };
 

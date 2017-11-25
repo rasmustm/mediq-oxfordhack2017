@@ -1,11 +1,13 @@
-<head>
-	<title>test</title>
-</head>
+{% extends "layout.html" %}
+{% block body %}
 <body>
-	<form id="test" method="get" action="">
+	<h1>Enter your query:</h1>
+	<form id="test" method="POST" action="">
 		<div class="speech">
-			<input type="text" name="q" id="transcript" placeholder="speak">
-			<img onclick="startDictation()" src="http://via.placeholder.com/350x150">
+			<input type="text" name="query" id="transcript" placeholder="speak"><br>
+			<!-- <img onclick="startDictation()" src="http://via.placeholder.com/350x150"><br> -->
+			<i onclick="startDictation()" class="fa fa-microphone" aria-hidden="true"></i>
+			<input type="submit" value="Submit">
 		</div>
 	</form>
 
@@ -26,7 +28,7 @@
         document.getElementById('transcript').value
                                  = e.results[0][0].transcript;
         recognition.stop();
-        document.getElementById('test').submit();
+        // document.getElementById('test').submit();
       };
 
       recognition.onerror = function(e) {
@@ -37,3 +39,4 @@
   }
 	</script>
 </body>
+{% endblock %}

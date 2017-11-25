@@ -1,0 +1,39 @@
+<head>
+	<title>test</title>
+</head>
+<body>
+	<form id="test" method="get" action="">
+		<div class="speech">
+			<input type="text" name="q" id="transcript" placeholder="speak">
+			<img onclick="startDictation()" src="http://via.placeholder.com/350x150">
+		</div>
+	</form>
+
+	<script>
+  function startDictation() {
+
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+      var recognition = new webkitSpeechRecognition();
+
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.lang = "en-US";
+      recognition.start();
+
+      recognition.onresult = function(e) {
+        document.getElementById('transcript').value
+                                 = e.results[0][0].transcript;
+        recognition.stop();
+        document.getElementById('test').submit();
+      };
+
+      recognition.onerror = function(e) {
+        recognition.stop();
+      }
+
+    }
+  }
+	</script>
+</body>

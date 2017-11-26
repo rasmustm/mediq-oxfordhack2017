@@ -25,5 +25,5 @@ session = mendeley.start_client_credentials_flow().authenticate()
 doi = args.doi
 
 doc = session.catalog.by_identifier(doi=doi, view='stats')
-print dir(doc)
+print(dir(doc))
 print '"%s" has %s readers.' % (doc.title, doc.reader_count)

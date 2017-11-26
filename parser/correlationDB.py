@@ -1,46 +1,62 @@
 from pymongo import MongoClient
-client = MongoClient('localhost', 27017)
+from crossrefQuery import crossrefQuery
 
-corrThreshold=0.5
+def mergeWords(termFrequency, correlationThreshold=0.5):
+	# takes a dictinary of terms with corresponding frequency
+	# and then merges those with a high enough correlation
 
-db = client.test_database
+	client = MongoClient('localhost', 27017)
+	db = client.test_database
+	correlationCollection = db.correlation
+	
+	def insertCorrelation(term1, term2, correlation):
+			l = sorted([term1, term2])
+			entry = {
+					"keyword1": l[0],
+					"keyword2": l[1],
+					"correlation": correlation}
 
-correlationCollection = db.correlation
+			correlationCollection.insert_one(entry)
+	
+	def getCorrelation(term1, term2):
+			l=sorted([term1, term2])
+			entry= correlationCollection.find_one(
+					{"keyword1": l[0],"keyword2": l[1]})
+			if( entry == None):
+					return None
+			return entry["correlation"]
 
-def insert(x, y, corr):
-    l=sorted([x, y])
-    entry={"keyword1": l[0],
-        "keyword2": l[1],
-        "correlation": corr}
-    correlationCollection.insert_one(entry)
+	def average(a, b):
+		return (a + b) / 2
+	
+	terms = list(termFrequency.keys())
+	
+	for i in range(len(terms)):
+		for j in range(i+1, len(terms)):
+			term1 = terms[i]
+			term2 = terms[j]
 
-def get(x, y):
-    l=sorted([x, y])
-    entry= correlationCollection.find_one(
-        {"keyword1": l[0],"keyword2": l[1]})
-    if(entry==None):
-        return None
-    return entry["correlation"]
+			correlation = getCorrelation(term1, term2)
+			print(correlation)
 
-def getDOI(keyword):
-    print("a")
+			if (correlation == None):
+				term1_dois = crossrefQuery(term1)
+				term2_dois = crossrefQuery(term2)
+				print(term1, term2)
+				print(term1_dois)
+				print(term2_dois)
+				print("---")
 
-keywords={}
+				correlation = len(set(term1_dois).intersection(term2_dois)) \
+					/ (max(len(term1_dois), len(term2_dois)) + 0.0) 
 
-keys=keywords.keys()
+				insertCorrelation(term1, term2, correlation)
 
-for i in range(len(keys)):
-    for j in range(i+1,len(keys)):
-        corr=get(keys[i], keys[j])
-        if(corr==None):
-            document_list1=getDOI(keys[i])
-            corr=len(set(document_list1).intersection(getDOI(keys[j])))/len(document_list1)
-            insert(keys[i], keys[j], corr)
-        if(corr>=corrThreshold):
-            keywords[keys[i] + " " + keys[j]]=(keywords[keys[i]]+keywords[keys[j]])/2
-            del keywords[keys[i]]
-            del keywords[keys[j]]
-        
+			if(correlation >= correlationThreshold):
+				compoundTerm = term1 + " " + term2
+				termFrequency[compoundTerm] = average(termFrequency[term1], termFrequency[term2])
+					
+				del termFrequency[term1]
+				del termFrequency[term2]
 
-
-
+	return termFrequency

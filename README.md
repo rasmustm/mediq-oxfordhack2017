@@ -1,6 +1,6 @@
 # mediQ @ OxfordHack 2017
 
-![]("https://raw.githubusercontent.com/rasmustm/mediq-oxfordhack2017/master/screenshot.png")
+![](https://raw.githubusercontent.com/rasmustm/mediq-oxfordhack2017/master/screenshot.png)
 
 ## Brief Explanation
 

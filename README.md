@@ -1,5 +1,7 @@
 # mediQ @ OxfordHack 2017
 
+![]("./screenshot.png")
+
 ## Brief Explanation
 
 This is a simple web application designed to give doctors and physicians the ability to record interactions with patients and, based on the voice data collected, receive a brief report of possibly relevant studies. Hopefully this will assist doctors in keeping updated with research and assist them in finding diagnoses and interventions that might help their patients, all the while saving doctors precious time that they can spend better helping other patients and doing research.

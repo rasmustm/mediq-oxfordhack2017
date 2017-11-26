@@ -10,8 +10,8 @@ The main web application, run with Python Flask, runs on Python 3. The dependenc
 
 To get the system running:
 
-`pip install -r requirements.python.txt`
-
-`cd python-flask && export FLASK_APP=app.py`
-
-`flask run`
+```
+$ pip install -r requirements.python.txt
+$ cd python-flask && export FLASK_APP=app.py
+$ flask run
+```

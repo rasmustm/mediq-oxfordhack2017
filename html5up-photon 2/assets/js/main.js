@@ -47,7 +47,6 @@ var buttonClicked = false;
 $("#start_button").click(function(){
     //$("#start_button").empty();
 		if (buttonClicked == false){
-			buttonClicked = !buttonClicked;
 			//let startbutton = $("<li><a href='#three' class='button scrolly'>Recording</a></li>");
 			//$("#start_button").append(startbutton);
 			$("#start_button").addClass('recording');
@@ -61,7 +60,7 @@ $("#start_button").click(function(){
 			$("#start_button").removeClass('recording');
 			$('.scrolly').scrolly();
 		}
-
+		buttonClicked = !buttonClicked;
 		// render();
 });
 

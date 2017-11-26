@@ -2,7 +2,6 @@ from mendeley import Mendeley
 import yaml
 import os
 
-
 # Get the DOI to look up
 import argparse
 parser = argparse.ArgumentParser()
@@ -26,4 +25,5 @@ session = mendeley.start_client_credentials_flow().authenticate()
 doi = args.doi
 
 doc = session.catalog.by_identifier(doi=doi, view='stats')
+print dir(doc)
 print '"%s" has %s readers.' % (doc.title, doc.reader_count)

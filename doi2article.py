@@ -2,7 +2,6 @@ from mendeley import Mendeley
 import yaml
 import os
 
-
 # Get the DOI to look up
 import argparse
 parser = argparse.ArgumentParser()

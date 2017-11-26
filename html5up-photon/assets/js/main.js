@@ -48,14 +48,26 @@
 })(jQuery);
 
 // Start when button is clicked
+var buttonClicked = false;
 $("#start_button").click(function(){
     $("#start_button").empty();
-		let startbutton = $("<li><a href=''#one' class='button scrolly'>Recording</a></li>");
-		$("#start_button").append(startbutton);
-		$("#start_button").addClass('recording');
-		$("#searchsubtitle").empty();
+		if (buttonClicked == false){
+			buttonClicked = !buttonClicked;
+			let startbutton = $("<li><a href='#three' class='button scrolly'>Recording</a></li>");
+			$("#start_button").append(startbutton);
+			$("#start_button").addClass('recording');
+			$("#searchsubtitle").empty();
+		} else {
+			buttonClicked = !buttonClicked;
+			let startbutton = $("<li><a class='button scrolly'>Start</a></li>");
+			$("#start_button").append(startbutton);
+			$("#start_button").removeClass('recording');
+			$("#searchsubtitle").append("<p>Results will be displayed after recording.</p>");
+			$('.scrolly').scrolly();
+			// $("#start_button").addClass('button');
+		}
 
-		render();
+		// render();
 });
 
 title = "Here goes the title"
@@ -75,3 +87,40 @@ journalLink = "www.google.nl"
 // 	);
 // 	$("#articleposts").append(article);
 // });
+
+// Select all links with hashes
+$('a[href*="#"]')
+  // Remove links that don't actually link to anything
+  .not('[href="#"]')
+  .not('[href="#0"]')
+  .click(function(event) {
+    // On-page links
+    if (
+      location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+      &&
+      location.hostname == this.hostname
+    ) {
+      // Figure out element to scroll to
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      // Does a scroll target exist?
+      if (target.length) {
+        // Only prevent default if animation is actually gonna happen
+        event.preventDefault();
+        $('html, body').animate({
+          scrollTop: target.offset().top
+        }, 1000, function() {
+          // Callback after animation
+          // Must change focus!
+          var $target = $(target);
+          $target.focus();
+          if ($target.is(":focus")) { // Checking if the target was focused
+            return false;
+          } else {
+            $target.attr('tabindex','-1'); // Adding tabindex for elements not focusable
+            $target.focus(); // Set focus again
+          };
+        });
+      }
+    }
+  });

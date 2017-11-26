@@ -1,8 +1,3 @@
-/*
-	Photon by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
 
 (function($) {
 
@@ -50,54 +45,37 @@
 // Start when button is clicked
 var buttonClicked = false;
 $("#start_button").click(function(){
-    $("#start_button").empty();
+    //$("#start_button").empty();
 		if (buttonClicked == false){
-			let startbutton = $("<li><a href='#three' class='button scrolly'>Recording</a></li>");
-			$("#start_button").append(startbutton);
+			buttonClicked = !buttonClicked;
+			//let startbutton = $("<li><a href='#three' class='button scrolly'>Recording</a></li>");
+			//$("#start_button").append(startbutton);
 			$("#start_button").addClass('recording');
 			$("#searchsubtitle").empty();
-		} else {
-			let startbutton = $("<li><a class='button scrolly'>Start</a></li>");
-			$("#start_button").append(startbutton);
-			$("#start_button").removeClass('recording');
-			$("#searchsubtitle").append("<p>Results will be displayed after recording.</p>");
-			// $('.scrolly').scrolly();
-			// render();
-			// $("#start_button").addClass('button');
+			$("#stopBtn").show();
+			$("#startBtn").hide();
 		}
-		buttonClicked = !buttonClicked;
 
 		// render();
 });
 
-$("#start_button").click(function render(){
-	var searchdata = {};
-	// Only execute if button is clicked for second time
-	if (buttonClicked == false){
-		 $.ajax({
-			type: "GET",
-			url: link + spreadsheetID + range + API_KEY,
-			async: false,
-			success: function(data, status){
-				searchdata = data;
-					}
-		});
+title = "Here goes the title"
+abstract = "Here goes the abstract."
+journalLink = "www.google.nl"
 
-		for i in range(0; ;++i){
-			let article = $("
-				<div class='row 150%'>
-					<div class='4u 12u$(medium)'>
-						<h3>"+title+"</h3>
-						<p>"+abstract+"</p>
-						<ul class='actions'>
-							<li><a href="+journalLink+" class="button">Full article</a></li>
-						</ul>
-					</div>"
-			);
-			$("#articleposts").append(article);
-		}
-}
-});
+// $().(()){
+// 	let article = $("
+// 		<div class='row 150%'>
+// 			<div class='4u 12u$(medium)'>
+// 				<h3>"+title+"</h3>
+// 				<p>"+abstract+"</p>
+// 				<ul class='actions'>
+// 					<li><a href="+journalLink+" class="button">Full article</a></li>
+// 				</ul>
+// 			</div>"
+// 	);
+// 	$("#articleposts").append(article);
+// });
 
 // Select all links with hashes
 $('a[href*="#"]')

@@ -15,15 +15,16 @@ def index(queryResults = None):
 	if request.method == "POST":
 		print("query:", request.form["query"])
 		query = request.form["query"]
-	
-		termFrequency = TermTools.getWordCount(query)		
+
+		termFrequency = TermTools.getWordCount(query)
 		termFrequency = TermTools.mergeWords(termFrequency)
 		valuesAndDois = TermTools.valueFunction(termFrequency)
 		doisAndInfo = TermTools.dois2articles("../config.yml", valuesAndDois)
 
 		queryResults = doisAndInfo
 
-	return render_template("index.html", queryResults=queryResults) 
+	return render_template("index.html", queryResults=queryResults)
+
 @app.route("/test")
 def test():
 	return "test"

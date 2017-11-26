@@ -1,15 +1,33 @@
 <html lang="en">
 <head>
 	<title>MediQuery</title>
+	<meta charset="utf-8" />
 	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='html5up/css/main.css') }}" type="text/css">
 	<meta name="viewport" content="initial-scale=1; user-scalable=no">
 </head>
+<body>
 	<script src="https://use.fontawesome.com/33461da12b.js"></script>
 {% block body %}
 {% endblock %}
+	<!-- JQuery -->
 	<script
 		src="https://code.jquery.com/jquery-3.2.1.min.js"
 		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 		crossorigin="anonymous"></script>
 	<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+	<!-- Scripts for Html5Up -->
+	<script src="{{ url_for('static', filename='html5up/js/jquery.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='html5up/js/jquery.scrolly.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='html5up/js/skel.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='html5up/js/util.js') }}"></script>
+	<script src="{{ url_for('static', filename='html5up/js/main.js') }}"></script>
+	<!-- <script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/skel.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script> -->
+
+</body>
 </html>

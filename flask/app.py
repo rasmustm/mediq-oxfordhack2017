@@ -48,7 +48,7 @@ def index(queryResults = None):
 		for key in list(queryResults.keys())[11:]:
 			del queryResults[key]
 
-	return render_template("index.html", queryResults=queryResults, async_mode=socketio.async_mode) 
+	return render_template("index.html", queryResults=queryResults) 
 
 @app.route("/test")
 def test():

@@ -10,8 +10,7 @@ class TermTools:
 		# takes a dictinary of terms with corresponding frequency
 		# and then merges those with a high enough correlation
 	
-		client = MongoClient('localhost', 27017)
-		db = client.test_database
+		client = MongoClient('localhost', 27017) db = client.test_database
 		correlationCollection = db.correlation
 		
 		def insertCorrelation(term1, term2, correlation):
@@ -151,3 +150,13 @@ class TermTools:
 				pass
 			
 		return doisAndInfo
+	
+	@staticmethod
+	def removeWords(dictionaryLocation, listOfWords):
+		dictionaryWords = open(dictionaryLocation).read().split()
+
+		for word in listOfWords:
+			if word not in dictionaryWords:
+				listOfWords.remove(word)
+
+		return listOfWords

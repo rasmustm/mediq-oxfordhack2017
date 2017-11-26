@@ -1,4 +1,4 @@
-# medQ @ OxfordHack 2017
+# mediQ @ OxfordHack 2017
 
 ## Brief Explanation
 

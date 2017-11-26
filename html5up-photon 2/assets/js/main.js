@@ -1,8 +1,3 @@
-/*
-	Photon by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
 
 (function($) {
 
@@ -50,23 +45,22 @@
 // Start when button is clicked
 var buttonClicked = false;
 $("#start_button").click(function(){
-    $("#start_button").empty();
+    //$("#start_button").empty();
 		if (buttonClicked == false){
-			buttonClicked = !buttonClicked;
-			let startbutton = $("<li><a href='#three' class='button scrolly'>Recording</a></li>");
-			$("#start_button").append(startbutton);
+			//let startbutton = $("<li><a href='#three' class='button scrolly'>Recording</a></li>");
+			//$("#start_button").append(startbutton);
 			$("#start_button").addClass('recording');
 			$("#searchsubtitle").empty();
+			$("#stopBtn").show();
+			$("#startBtn").hide();
 		} else {
-			buttonClicked = !buttonClicked;
-			let startbutton = $("<li><a class='button scrolly'>Start</a></li>");
-			$("#start_button").append(startbutton);
+			$("#searchsubtitle").empty();
+			$("#startBtn").show();
+			$("#stopBtn").hide();
 			$("#start_button").removeClass('recording');
-			$("#searchsubtitle").append("<p>Results will be displayed after recording.</p>");
 			$('.scrolly').scrolly();
-			// $("#start_button").addClass('button');
 		}
-
+		buttonClicked = !buttonClicked;
 		// render();
 });
 

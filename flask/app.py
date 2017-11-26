@@ -3,6 +3,7 @@ from mendeley import Mendeley, resources
 import os, sys
 import collections
 
+
 # Importing class of functions for interacting with input
 modulePath = "../parser"
 sys.path.append(os.path.abspath(modulePath))
@@ -48,8 +49,10 @@ def index(queryResults = None):
 		for key in list(queryResults.keys())[11:]:
 			del queryResults[key]
 
-	return render_template("index.html", queryResults=queryResults, async_mode=socketio.async_mode) 
+	return render_template("index.html", queryResults=queryResults)
 
 @app.route("/test")
 def test():
 	return "test"
+
+app.run(host='0.0.0.0', port=80)

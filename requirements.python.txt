@@ -1,2 +1,8 @@
 flask==0.10.1
+socket.io==2.0.4
+collections
+mendeley
+gevent.wsgi
+app
+
 

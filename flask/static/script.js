@@ -33,7 +33,7 @@ $(document).ready(function() {
 		// 
 		// socket.on('connect', function() {
 		// 	socket.emit('my_event', {data: 'I\'m connected!'});
-		});
+		// });
 	});
 
 	

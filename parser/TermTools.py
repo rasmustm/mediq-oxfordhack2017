@@ -1,5 +1,10 @@
 from pymongo import MongoClient
-from habanero import Crossref
+#from habanero import Crossref
+#from crossref.restful import Works
+from mendeley import Mendeley
+import os, sys, yaml
+import json
+from urllib.request import urlopen
 
 class TermTools:
 	@staticmethod
@@ -28,7 +33,6 @@ class TermTools:
 						return None
 				return entry["correlation"]
 	
-	
 		def average(a, b):
 			return (a + b) / 2
 		
@@ -40,15 +44,10 @@ class TermTools:
 				term2 = terms[j]
 	
 				correlation = getCorrelation(term1, term2)
-				print(correlation)
 	
 				if (correlation == None):
 					term1_dois = TermTools.crossrefQuery(term1)
 					term2_dois = TermTools.crossrefQuery(term2)
-					print(term1, term2)
-					print(term1_dois)
-					print(term2_dois)
-					print("---")
 	
 					correlation = len(set(term1_dois).intersection(term2_dois)) \
 						/ (max(len(term1_dois), len(term2_dois)) + 0.0) 
@@ -67,15 +66,30 @@ class TermTools:
 	@staticmethod
 	def crossrefQuery(query):
 		# returns a list of DOIs
+
+		# Initialise the API package and return 200 results
+		# for the query
+		# cr = Crossref()
+		# queryResults = cr.works(query=query, offset=300)
 	
-		cr = Crossref()
-		queryResults = cr.works(query=query)
+		# cleanResults = []	
+		
+		# works = Works()
+		# for e in works.query(query):
+		# 	cleanResults.append(e["DOI"])
 	
-		cleanResults = []	
-	
-		for e in queryResults["message"]["items"]:
-			cleanResults.append(e["DOI"])
-	
+		# for e in queryResults["message"]["items"]:
+		#		cleanResults.append(e["DOI"])
+
+		cleanResults = []
+
+		url = "https://api.crossref.org/works?query=" + query + "&rows=100"
+		with urlopen(url) as u:
+			data = json.loads(u.read().decode())
+			
+			for e in data["message"]["items"]:
+				cleanResults.append(e["DOI"])
+
 		return cleanResults
 
 	@staticmethod
@@ -115,3 +129,36 @@ class TermTools:
 				doiValue[doi] +=1
 	
 		return doiValue
+
+	@staticmethod
+	def dois2articles(configLocation, doisAndValues):
+		# takes the location of the config file, and a 
+		# dictionary with DOIs and their respective values and
+		# and results a dictionary with DOIs as keys and 
+		# abstracts and titles in a list as values
+
+		if os.path.isfile(configLocation):
+			with open(configLocation) as f:
+				config = yaml.load(f)
+
+		mendeley = Mendeley(config["clientId"], config["clientSecret"])
+		session = mendeley.start_client_credentials_flow().authenticate()
+
+		dois = doisAndValues.keys()
+		doisAndInfo = {}
+
+		for doi in dois:
+			try:
+				info = session.catalog.by_identifier(doi=doi, view="stats")
+
+				doisAndInfo[doi] = {
+					"title": info.title,
+					"abstract": info.abstract,
+					"link": info.link,
+					"keywords": info.keywords,
+					"year": info.year
+				}
+			except Exception as e:
+				pass
+			
+		return doisAndInfo

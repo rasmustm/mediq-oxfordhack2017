@@ -18,9 +18,11 @@ def index(queryResults = None):
 	
 		termFrequency = TermTools.getWordCount(query)		
 		termFrequency = TermTools.mergeWords(termFrequency)
-		valuesAndDOIs= TermTools.valueFunction(termFrequency)
+		valuesAndDois = TermTools.valueFunction(termFrequency)
+		doisAndInfo = TermTools.dois2articles("../config.yml", valuesAndDois)
 
-		queryResults = valuesAndDOIs
+		queryResults = doisAndInfo
+
 	return render_template("index.html", queryResults=queryResults) 
 @app.route("/test")
 def test():

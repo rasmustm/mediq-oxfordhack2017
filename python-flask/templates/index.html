@@ -5,7 +5,9 @@
 	<form id="test" method="POST" action="">
 		<div class="speech">
 			{% if queryResults != None %}
-				<p>{{ queryResults }}</p>
+				{% for key, value in queryResults.items() %}
+					<p> {{ value["title"] }} </p>
+				{% endfor %}
 			{% endif %}
 			<input type="text" name="query" id="transcript" placeholder="speak"><br>
 			<!-- <img onclick="startDictation()" src="http://via.placeholder.com/350x150"><br> -->

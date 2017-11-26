@@ -26,28 +26,23 @@
 					</ul>
 				</div>
 			</section>
-<!-- Scrolling caused by Division One: class "main style1"-->
-		<!-- One -->
-			<!-- <section id="one" class="main style1">
-				<div class="container">
-					<div class="row 150%">
-						<div class="6u 12u$(medium)">
-							<header class="major">
-								<h2>Lorem ipsum dolor adipiscing<br />
-								amet dolor consequat</h2>
-							</header>
-							<p>Adipiscing a commodo ante nunc accumsan et interdum mi ante adipiscing. A nunc lobortis non nisl amet vis sed volutpat aclacus nascetur ac non. Lorem curae et ante amet sapien sed tempus adipiscing id accumsan.</p>
-						</div>
-						<div class="6u$ 12u$(medium) important(medium)">
-							<span class="image fit"><img src="images/pic01.jpg" alt="" /></span>
-						</div>
-					</div>
-				</div>
-			</section> -->
+      <section id="three" class="main style1 special">
+        <div id ="articleheader" class="container">
+          <header class="major">
+            <h2>Article suggestions</h2>
+          </header>
+          <!-- Remove upon click -->
+          <div id="searchsubtitle">
+            <p>Will be displayed after search.</p>
+          </div>
+        </div>
+        <div id="articlebody" class="row 150% 4u 12u$(medium)">
 
+        </div>
+      </section>
 
 		<!-- Footer -->
-			<section id="footer">
+			<!-- <section id="footer">
 				<ul class="icons">
 					<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
 					<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
@@ -58,7 +53,7 @@
 				<ul class="copyright">
 					<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 				</ul>
-			</section>
+			</section> -->
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
@@ -419,6 +414,7 @@
 				var xhttp = new XMLHttpRequest();
 			  xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
+          console.log("Button is pressed first time.");
 				  render(JSON.parse(this.responseText));
     			$("#searchsubtitle").empty();
     			$("#startBtn").show();
@@ -434,6 +430,7 @@
     			  xhttp.send(txt);
 			}
 			else{
+        console.log("Button is pressed second time.");
   			$("#searchsubtitle").empty();
   			$("#startBtn").show();
   			$("#stopBtn").hide();
@@ -447,7 +444,6 @@
       function OnComplete() {
           startBtn.disabled = false;
           stopBtn.disabled = true;
-
       }
 
 function render(json){
@@ -461,16 +457,12 @@ function render(json){
           metadataArticle[key] = json.key
         }
       }
-      let article = $("<div class='row 150%'>
-          <div class='4u 12u$(medium)'>
-            <h3>"+metadataArticle.title+"</h3>
-            <p>"+metadataArticle.abstract+"</p>
-            <ul class='actions'>
-              <li><a href="+metadataArticle.link+" class='button'>Full article</a></li>
-            </ul>
-          </div>"
+      let article = $(
+          "<div><h3>" + metadataArticle.title +
+          "</h3><p>" +metadataArticle.abstract+ "</p><ul class='actions'><li><a href="
+              +metadataArticle.link+" class='button'>Full article</a></li></ul></div>"
       );
-			$("#articleposts").append(article);
+			$("#articlebody").append(article);
   		}
 }
 

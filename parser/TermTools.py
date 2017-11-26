@@ -1,6 +1,4 @@
 from pymongo import MongoClient
-#from habanero import Crossref
-#from crossref.restful import Works
 from mendeley import Mendeley
 import os, sys, yaml
 import json
@@ -12,26 +10,28 @@ class TermTools:
 		# takes a dictinary of terms with corresponding frequency
 		# and then merges those with a high enough correlation
 	
-		client = MongoClient('localhost', 27017)
-		db = client.test_database
+		client = MongoClient('localhost', 27017) db = client.test_database
 		correlationCollection = db.correlation
 		
 		def insertCorrelation(term1, term2, correlation):
-				l = sorted([term1, term2])
-				entry = {
-						"keyword1": l[0],
-						"keyword2": l[1],
-						"correlation": correlation}
+			l = sorted([term1, term2])
+			entry = {
+				"keyword1": l[0],
+				"keyword2": l[1],
+				"correlation": correlation}
 	
-				correlationCollection.insert_one(entry)
+			correlationCollection.insert_one(entry)
 		
 		def getCorrelation(term1, term2):
-				l=sorted([term1, term2])
-				entry= correlationCollection.find_one(
-						{"keyword1": l[0],"keyword2": l[1]})
-				if( entry == None):
-						return None
-				return entry["correlation"]
+			# gets correlation betweem two search term by
+			# comparing how many results they share
+
+			l = sorted([term1, term2])
+			entry= correlationCollection.find_one(
+					{"keyword1": l[0],"keyword2": l[1]})
+			if( entry == None):
+					return None
+			return entry["correlation"]
 	
 		def average(a, b):
 			return (a + b) / 2
@@ -65,21 +65,7 @@ class TermTools:
 	
 	@staticmethod
 	def crossrefQuery(query):
-		# returns a list of DOIs
-
-		# Initialise the API package and return 200 results
-		# for the query
-		# cr = Crossref()
-		# queryResults = cr.works(query=query, offset=300)
-	
-		# cleanResults = []	
-		
-		# works = Works()
-		# for e in works.query(query):
-		# 	cleanResults.append(e["DOI"])
-	
-		# for e in queryResults["message"]["items"]:
-		#		cleanResults.append(e["DOI"])
+		# returns a list of DOIs based on some text query
 
 		cleanResults = []
 
@@ -94,6 +80,8 @@ class TermTools:
 
 	@staticmethod
 	def getWordCount(string):
+		# counts frequency of each word in a string and returns
+		# a dictionary with frequency
 		stringArray = string.split()
 	
 		termFrequency = {}
@@ -132,10 +120,10 @@ class TermTools:
 
 	@staticmethod
 	def dois2articles(configLocation, doisAndValues):
-		# takes the location of the config file, and a 
-		# dictionary with DOIs and their respective values and
-		# and results a dictionary with DOIs as keys and 
-		# abstracts and titles in a list as values
+		# takes the location of the config file for mendeley, and a 
+		# dictionary with DOIs and their respective values 
+		# and returns a dictionary with DOIs as keys and 
+		# abstracts, titles and more in a dict as values
 
 		if os.path.isfile(configLocation):
 			with open(configLocation) as f:
@@ -162,3 +150,13 @@ class TermTools:
 				pass
 			
 		return doisAndInfo
+	
+	@staticmethod
+	def removeWords(dictionaryLocation, listOfWords):
+		dictionaryWords = open(dictionaryLocation).read().split()
+
+		for word in listOfWords:
+			if word not in dictionaryWords:
+				listOfWords.remove(word)
+
+		return listOfWords

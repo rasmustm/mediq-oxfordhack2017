@@ -1,14 +1,17 @@
-# OxfordHack 2017
+# mediQ @ OxfordHack 2017
 
-## Core functionality
+## Brief Explanation
 
-- voice to text
-- pass to search engine
-- return articles
+This is a simple web application designed to give doctors and physicians the ability to record interactions with patients and, based on the voice data collected, receive a brief report of possibly relevant studies. Hopefully this will assist doctors in keeping updated with research and assist them in finding diagnoses and interventions that might help their patients, all the while saving doctors precious time that they can spend better helping other patients and doing research.
 
-## Key technologies
+## Getting up and running
 
-- APIs
-- web server
+The main web application, run with Python Flask, runs on Python 3. The dependencies can be found in requirements.python.txt
 
-8c0e4ae11b6e4811b8145095ea4b3eef
+To get the system running:
+
+```
+$ pip install -r requirements.python.txt
+$ cd python-flask && export FLASK_APP=app.py
+$ flask run
+```

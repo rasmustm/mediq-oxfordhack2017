@@ -54,6 +54,12 @@ $("#start_button").click(function(){
 			$("#searchsubtitle").empty();
 			$("#stopBtn").show();
 			$("#startBtn").hide();
+		} else {
+			$("#searchsubtitle").empty();
+			$("#startBtn").show();
+			$("#stopBtn").hide();
+			$("#start_button").removeClass('recording');
+			$('.scrolly').scrolly();
 		}
 
 		// render();

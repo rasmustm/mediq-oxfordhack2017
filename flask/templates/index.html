@@ -36,10 +36,17 @@
 				{% for key, value in queryResults.items() %}
 					<div class="card 4u 12u$(medium)">
 						<h3>{{ value["title"] }}</h3>
-						<p> {{ value["abstract"] }}<br><b>Keywords: {{ value["keywords"] }} </b></p>
-						<p> {{ value["keywords"] }} {{ value["keywords"]) }} </p>
+						<p> {{ value["abstract"] }}<br>
+						{% if value["keywords"] != None %}
+						<p><b>Keywords:</b>
+							{% for e in value["keywords"] %}
+								{{ e }},
+							{% endfor %}
+						{% endif %}
+						</p><br>
+						<p><b>DOI:</b> {{ key }}</p>
 						<ul class="actions">
-							<li><a href="#" class="button">More</a></li>
+							<li><a href="{{ value["link"] }}" class="button">Read Study</a></li>
 						</ul>
 					</div>
 				{% endfor %}

@@ -27,5 +27,14 @@ function startDictation() {
 $(document).ready(function() {
 	$("#microphoneButton").click(function () {
 		$(this).toggleClass("red");
+
+		// socket.io
+		var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace
+		
+		socket.on('connect', function() {
+			socket.emit('my_event', {data: 'I\'m connected!'});
+		});
 	});
+
+	
 });

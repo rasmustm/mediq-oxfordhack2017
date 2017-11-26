@@ -22,8 +22,12 @@ def index(queryResults = None):
 		wordsToRemove = \
 		TermTools.wordsToRemove("../code-testing/formatted_dictionary", list(termFrequency.keys()))
 
+		print(wordsToRemove)
+
 		for word in wordsToRemove:
 			del termFrequency[word]
+			
+		print(list(termFrequency.keys()))
 
 		termFrequency = TermTools.mergeWords(termFrequency)
 		valuesAndDois = TermTools.valueFunction(termFrequency)
@@ -46,7 +50,7 @@ def index(queryResults = None):
 			del queryResults[key]
 			
 
-	return render_template("index.html", queryResults=queryResults) 
+	return render_template("index.html", queryResults=queryResults, async_mode=socketio.async_mode) 
 @app.route("/test")
 def test():
 	return "test"

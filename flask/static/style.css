@@ -23,3 +23,12 @@
 	flex-wrap: wrap;
 	align-items: stretch;
 }
+
+p {
+	font-size: 12pt !important;
+}
+
+h3 {
+	font-weight: bold !important;
+	font-size: 15pt !important;
+}

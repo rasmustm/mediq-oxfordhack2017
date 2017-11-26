@@ -20,13 +20,25 @@ def index(queryResults = None):
 		termFrequency = TermTools.getWordCount(query)		
 
 		wordsToRemove = \
-		TermTools.removeWords("../code-testing/formatted_dictionary", list(termFrequency.keys()))
+		TermTools.wordsToRemove("../code-testing/formatted_dictionary", list(termFrequency.keys()))
+
+		for word in wordsToRemove:
+			del termFrequency[word]
 
 		termFrequency = TermTools.mergeWords(termFrequency)
 		valuesAndDois = TermTools.valueFunction(termFrequency)
 		doisAndInfo = TermTools.dois2articles("../config/config.yml.rasmus", valuesAndDois)
 
 		queryResults = doisAndInfo
+
+		# Remove all entries that do not have an abstract
+		removeValues = []
+		for key, value in queryResults.items():
+			if value["abstract"] == None:
+				removeValues.append(key)
+
+		for key in removeValues:
+			del queryResults[key]
 
 		# Reduce size of dictionary s.t. only ten entries are
 		# displayed

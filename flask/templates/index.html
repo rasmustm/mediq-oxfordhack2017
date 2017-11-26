@@ -35,8 +35,9 @@
 			{% if queryResults != None %}
 				{% for key, value in queryResults.items() %}
 					<div class="card 4u 12u$(medium)">
-						<h3>Title</h3>
-						<p> {{ value["title"] }}, {{ value["keywords"]}} </p>
+						<h3>{{ value["title"] }}</h3>
+						<p> {{ value["abstract"] }}<br><b>Keywords: {{ value["keywords"] }} </b></p>
+						<p> {{ value["keywords"] }} {{ value["keywords"]) }} </p>
 						<ul class="actions">
 							<li><a href="#" class="button">More</a></li>
 						</ul>

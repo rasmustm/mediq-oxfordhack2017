@@ -19,7 +19,7 @@ def index(queryResults = None):
 		termFrequency = TermTools.getWordCount(query)		
 		termFrequency = TermTools.mergeWords(termFrequency)
 		valuesAndDois = TermTools.valueFunction(termFrequency)
-		doisAndInfo = TermTools.dois2articles("../config.yml", valuesAndDois)
+		doisAndInfo = TermTools.dois2articles("../config/config.yml.rasmus", valuesAndDois)
 
 		queryResults = doisAndInfo
 
